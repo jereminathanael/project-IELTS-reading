@@ -17,6 +17,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
 
@@ -31,5 +32,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(UserAnswer::class);
+    }
+
+    public function scores()
+    {
+        return $this->hasMany(UserScore::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
     }
 }

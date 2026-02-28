@@ -27,12 +27,12 @@ class AuthenticatedSessionController extends Controller
             return response()->json(['message'=>'Login gagal, email/password salah'], 401);
         }
 
-        $token = $user->createToken('api-token')->plainTextToken;
+        $newToken = $user->createToken('api-token')->plainTextToken;
 
         return response()->json([
             'message'=>'Login berhasil',
             'user'=>$user,
-            'token'=>$token
+            'token'=>$newToken
         ]);
     }
 
@@ -42,7 +42,7 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request): JsonResponse
     {
         // Hapus token yang dipakai saat login
-        $request->user()->currentAccessToken()->delete();
+        $request->user()->tokens()->delete();
 
         return response()->json([
             'message' => 'Logout berhasil',

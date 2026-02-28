@@ -24,12 +24,24 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => ['required', 'in:admin,user'],
         ]);
+
+        $allowedFields = ['name', 'email', 'password', 'password_confirmation', 'role'];
+        $extraFields = array_diff(array_keys($request->all()), $allowedFields);
+
+        if (!empty($extraFields)) {
+            return response()->json([
+                'message' => 'Field tidak diizinkan: ' . implode(', ', $extraFields),
+                'status' => 'error'
+            ], 422);
+        }
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->string('password')),
+            'role' => $request->role,
         ]);
 
         event(new Registered($user));
