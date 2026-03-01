@@ -27,7 +27,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->boolean('is_correct');
-            $table->timestamp('answered_at')->nullable();
+            $table->timestamps();
         });
     }
 

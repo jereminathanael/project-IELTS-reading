@@ -25,7 +25,7 @@ return new class extends Migration
             $table->integer('total_questions');
             $table->integer('correct_answers');
             $table->integer('score');
-            $table->timestamp('taken_at')->nullable();
+            $table->timestamps();
         });
     }
 

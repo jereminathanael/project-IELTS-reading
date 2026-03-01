@@ -16,8 +16,12 @@ class RoleMiddleware
         }
 
         if ($request->user()->role !== $role) {
-            return response()->json(['message' => 'Forbidden'], 403);
-        }
+            return response()->json([
+                    'message' => 'Forbidden',
+                    'user_role' => $request->user()->role,  // cek role di db
+                    'required_role' => $role,                // cek role yang diminta route
+                ], 403);    
+            }
 
         return $next($request);
     }

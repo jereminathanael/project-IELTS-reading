@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('option_label'); // A, B, C, D
             $table->text('option_text');
             $table->boolean('is_correct')->default(false);
+            $table->timestamps();
         });
     }
 

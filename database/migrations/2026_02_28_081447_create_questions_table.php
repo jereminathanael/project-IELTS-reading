@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->text('question_text');
             $table->string('question_type'); // multiple_choice, true_false, etc
-            $table->timestamp('created_at')->nullable();
+            $table->timestamps();
         });
     }
 
