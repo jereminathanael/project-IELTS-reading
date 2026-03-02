@@ -111,10 +111,10 @@ Base URL: `http://127.0.0.1:8000`
 
 ```json
 {
-  "name": "michie",
-  "email": "michie@gmail.com",
-  "password": "bahagia3",
-  "password_confirmation": "bahagia3",
+  "name": "johndoe",
+  "email": "johndoe@gmail.com",
+  "password": "secret123",
+  "password_confirmation": "secret123",
   "role": "user"
 }
 ```
@@ -127,8 +127,8 @@ Base URL: `http://127.0.0.1:8000`
 
 ```json
 {
-  "email": "michie@gmail.com",
-  "password": "bahagia3"
+  "email": "johndoe@gmail.com",
+  "password": "secret123"
 }
 ```
 
