@@ -70,6 +70,16 @@ Lihat skema lengkap di: [https://dbdiagram.io/d/IELTS-reading-69a10e7fa3f0aa31e1
 
 ---
 
+## Bukti Pengujian API (Postman)
+
+Screenshot hasil pengujian API menggunakan Postman tersedia di:
+
+```
+./storage/postman documentation/
+```
+
+---
+
 ## Dokumentasi API (Swagger)
 
 Lihat dokumentasi lengkap di: [https://app.swaggerhub.com/apis/notyet-f8b/project-ielts-api/1.0.0](https://app.swaggerhub.com/apis/notyet-f8b/project-ielts-api/1.0.0)
