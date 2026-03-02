@@ -1,59 +1,233 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Project IELTS Reading API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+REST API untuk latihan soal IELTS Reading berbasis Laravel 12 dengan autentikasi Sanctum dan role-based access control (admin & user).
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Setup Awal
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 1. Clone Repository
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```bash
+git clone https://github.com/[username]/project-ielts.git
+cd project-ielts
+```
 
-## Learning Laravel
+### 2. Install Dependencies
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+```bash
+composer install
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 3. Konfigurasi Environment
 
-## Laravel Sponsors
+Salin file `.env.example` menjadi `.env`:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+cp .env.example .env
+```
 
-### Premium Partners
+Lalu edit bagian berikut di file `.env`:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nama_database_kamu
+DB_USERNAME=nama_username_kamu
+DB_PASSWORD=password_kamu
 
-## Contributing
+SESSION_DRIVER=file
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 4. Generate App Key
 
-## Code of Conduct
+```bash
+php artisan key:generate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 5. Migrasi Database
 
-## Security Vulnerabilities
+```bash
+php artisan migrate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+> **Catatan:** Jalankan `composer install` terlebih dahulu sebelum migrasi, karena Laravel Breeze dan Sanctum perlu terinstall agar file migration tersedia.
 
-## License
+### 6. Jalankan Server
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan serve
+```
+
+Server akan berjalan di `http://127.0.0.1:8000`
+
+---
+
+## Skema Database
+
+Lihat skema lengkap di: [https://dbdiagram.io/d/IELTS-reading-69a10e7fa3f0aa31e1418de4](https://dbdiagram.io/d/IELTS-reading-69a10e7fa3f0aa31e1418de4)
+
+---
+
+## Dokumentasi API (Swagger)
+
+Lihat dokumentasi lengkap di: [https://app.swaggerhub.com/apis/notyet-f8b/project-ielts-api/1.0.0](https://app.swaggerhub.com/apis/notyet-f8b/project-ielts-api/1.0.0)
+
+---
+
+## Autentikasi
+
+| Endpoint | Bearer Token |
+|---|---|
+| `POST /api/register` | ❌ Tidak perlu |
+| `POST /api/login` | ❌ Tidak perlu |
+| Semua endpoint lainnya | ✅ Wajib |
+
+Setelah login, gunakan token yang dikembalikan sebagai **Bearer Token** di header `Authorization`.
+
+---
+
+## Endpoint API
+
+Base URL: `http://127.0.0.1:8000`
+
+---
+
+### Auth
+
+#### Register
+`POST /api/register`
+
+```json
+{
+  "name": "michie",
+  "email": "michie@gmail.com",
+  "password": "bahagia3",
+  "password_confirmation": "bahagia3",
+  "role": "user"
+}
+```
+> Field `role` diisi `user` atau `admin`.
+
+---
+
+#### Login
+`POST /api/login`
+
+```json
+{
+  "email": "michie@gmail.com",
+  "password": "bahagia3"
+}
+```
+
+---
+
+#### Logout
+`POST /api/logout` — 🔐 Bearer Token
+
+---
+
+### Admin — Passages
+
+> Semua endpoint admin memerlukan Bearer Token dengan role **admin**.
+
+| Method | Endpoint | Keterangan |
+|---|---|---|
+| GET | `/api/admin/passages` | Ambil semua passage |
+| POST | `/api/admin/passages` | Buat passage baru |
+| GET | `/api/admin/passages/{id}` | Ambil satu passage beserta questions & options |
+| PUT | `/api/admin/passages/{id}` | Update passage |
+| DELETE | `/api/admin/passages/{id}` | Hapus passage |
+
+**Body POST/PUT:**
+```json
+{
+  "title": "Bacaan IELTS no 1",
+  "content": "Biodiversity refers to the variety of life on Earth..."
+}
+```
+> Untuk PUT, kirim hanya field yang ingin diubah.
+
+---
+
+### Admin — Questions
+
+| Method | Endpoint | Keterangan |
+|---|---|---|
+| GET | `/api/admin/questions` | Ambil semua question |
+| POST | `/api/admin/questions` | Buat question baru |
+| GET | `/api/admin/questions/{id}` | Ambil satu question |
+| PUT | `/api/admin/questions/{id}` | Update question |
+| DELETE | `/api/admin/questions/{id}` | Hapus question |
+
+**Body POST/PUT:**
+```json
+{
+  "passage_id": 1,
+  "question_text": "What is the main topic of the passage?",
+  "question_type": "multiple choice"
+}
+```
+
+---
+
+### Admin — Options
+
+| Method | Endpoint | Keterangan |
+|---|---|---|
+| GET | `/api/admin/options` | Ambil semua option |
+| POST | `/api/admin/options` | Buat option baru |
+| GET | `/api/admin/options/{id}` | Ambil satu option |
+| PUT | `/api/admin/options/{id}` | Update option |
+| DELETE | `/api/admin/options/{id}` | Hapus option |
+
+**Body POST/PUT:**
+```json
+{
+  "question_id": 4,
+  "option_label": "D",
+  "option_text": "Salah banget",
+  "is_correct": false
+}
+```
+
+---
+
+### User — Exercises
+
+> Semua endpoint user memerlukan Bearer Token dengan role **user**.
+
+#### Ambil Semua Passage
+`GET /api/exercises`
+
+---
+
+#### Submit Jawaban
+`POST /api/exercises/submit-answer`
+
+Kirim semua jawaban untuk satu passage sekaligus. Setiap `selected_option_id` adalah ID dari tabel `options`. Karena soal berbentuk pilihan ganda, setiap question memiliki beberapa options — pilih **satu** `option_id` per question.
+
+```json
+{
+  "passage_id": 1,
+  "answers": [
+    {"selected_option_id": 1},
+    {"selected_option_id": 6},
+    {"selected_option_id": 9}
+  ]
+}
+```
+
+> **Catatan:** Jumlah objek dalam array `answers` harus sesuai dengan jumlah questions di passage tersebut. Sistem otomatis mendeteksi `question_id` dari option yang dipilih karena setiap option sudah terhubung ke satu question di database.
+
+**Response:**
+```json
+{
+  "message": "Jawaban berhasil dikirim",
+  "total_questions": 3,
+  "correct_answers": 2,
+  "score": 2
+}
+```
