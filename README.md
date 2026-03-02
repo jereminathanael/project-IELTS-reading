@@ -231,3 +231,8 @@ Kirim semua jawaban untuk satu passage sekaligus. Setiap `selected_option_id` ad
   "score": 2
 }
 ```
+
+### Prompting AI yang saya gunakan
+1. buatkan saya skema tabel relasional (db diagram io) dari sistem latihan soal IELTS reading, tabel tersebut berupa daftar soal dan opsi soal, menyimpan jawaban user, dan memproleh skor yang diperoleh user(dari jawaban yang benar atas opsi soalnya). dan di tabel user memiliki relasi atau connect dengan jawaban user atas pilihan dari opsi soalnya
+2. buatkan fitur untuk register dan login user, dimana ketika user mau mengakses route untuk mengerjakan soal, memberikan jawaban dan mendapatkan skor harus login/ register terlebih dahulu (jadi akses nya di batasi menggunakan middleware). dan buat kan fitur role based access control untuk akses admin (membuat soal,pertanyaan, dan jawaban yang benar) dan akses user untuk mengerjakan soal ielts reading tersebut. buat memakai library tambahan laravel breeze(atau yang terbaik, dan tidak usah buatkan view.blade nya hanya buat backend). buat model dan controller nya juga.
+3. buat dokumentasi project ielts saya di readme.md yaitu: setup awal mulai dari git clone dr github saya trus edit .env yang database untuk atur nama db connection, nama db, nama username db dan password db nya, dan atur session_driver jdi session_driver = file. trus composer install untuk instalasi laravel breeze, kemudian php artisan migrate untuk migrate semua file migrasi yang telah saya buat. dokumentasi skema tabel yang saya buat di dbdiagram di link ini: https://dbdiagram.io/d/IELTS-reading-69a10e7fa3f0aa31e1418de4 dokumentasi penggunaan api di link ini: https://app.swaggerhub.com/apis/notyet-f8b/project-ielts-api/1.0.0 
