@@ -9,8 +9,8 @@ REST API untuk latihan soal IELTS Reading berbasis Laravel 12 dengan autentikasi
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/[username]/project-ielts.git
-cd project-ielts
+git clone https://github.com/jereminathanael/project-IELTS-reading.git
+cd project-IELTS-reading
 ```
 
 ### 2. Install Dependencies
